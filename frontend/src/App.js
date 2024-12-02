@@ -1,40 +1,33 @@
 import React, { useState } from 'react';
-import axios from './axiosConfig';
+import LoginForm from './components/LoginForm';
+import SignupForm from './components/SignupForm';
+import UserList from './components/UserList';
 
 const App = () => {
-    const [email, setEmail] = useState('');
-    const [senha, setSenha] = useState('');
-    const [isLogin, setIsLogin] = useState(true);
-
-    const handleSubmit = async (e) => {
-        e.preventDefault();
-        const endpoint = isLogin ? '/api/auth/login' : '/api/auth/signup';
-        try {
-            const response = await axios.post(endpoint, { email, senha });
-            alert(response.data.message);
-        } catch (error) {
-            alert(error.response?.data?.message || 'Erro de conexão');
+    const [currentPage, setCurrentPage] = useState('login'); 
+    const renderPage = () => {
+        switch (currentPage) {
+            case 'login':
+                return <LoginForm />;
+            case 'signup':
+                return <SignupForm />;
+            case 'listUsers':
+                return <UserList />;
+            default:
+                return <LoginForm />;
         }
     };
 
-    return ( //temos que criar os formulários 
-      <div>
-        <h1>{isLogin ? 'Login' : 'Cadastro'}</h1>
-        <form onSubmit={handleSubmit}>
-          <input
-
-          />
-
-          <input
-
-          />
-          <button type="submit">{isLogin ? 'Entrar' : 'Cadastrar'}</button>
-        </form>
-        <button onClick={() => setIsLogin(!isLogin)}>
-          {isLogin ? 'Cadastro' : 'Login'}
-        </button>
-      </div>
+    return (
+        <div>
+            <nav>
+                <button onClick={() => setCurrentPage('login')}>Login</button>
+                <button onClick={() => setCurrentPage('signup')}>Cadastro</button>
+                <button onClick={() => setCurrentPage('listUsers')}>Lista de Usuários</button>
+            </nav>
+            <div>{renderPage()}</div>
+        </div>
     );
-
 };
+
 export default App;
