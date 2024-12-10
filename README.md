@@ -1,4 +1,5 @@
-Projeto desenvolvido como projeto final de Programação Para Internet (IFRN/CM 2024.2)
+> Atividade Avaliativa
+## Projeto final de Programação Para Internet (IFRN 2024.2)
 
 ### Pré-requisitos
 
